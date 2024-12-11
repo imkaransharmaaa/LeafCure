@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeafCure - Predict and Cure Plant Leaf Diseases</title>
+    <!-- Website favicon -->
+    <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}" type="image/x-icon">
+
+    <style>
+        /* Global Styles */
+        body {
+            background-image: url('{{ url_for("static", filename="images/bg.png") }}');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+
+        /* Reset margin and padding for all elements */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Navigation bar styles */
+        nav {
+            background-color: rgba(0, 0, 0, 0.9); /* Semi-transparent black background */
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        /* Logo styling */
+        nav .logo img {
+            height: 45px; /* Logo height */
+            width: auto; /* Maintain aspect ratio */
+        }
+
+        /* Navigation links styling */
+        nav ul {
+            list-style: none; /* Remove bullets from list */
+            display: flex;
+            align-items: center;
+        }
+
+        nav ul li {
+            margin: 0 15px; /* Spacing between navigation items */
+        }
+
+        nav ul li a {
+            text-decoration: none; /* Remove underline */
+            color: white;
+            font-size: 1rem;
+            transition: color 0.3s ease; /* Smooth color transition */
+        }
+
+        /* Navigation link hover effect */
+        nav ul li a:hover {
+            color: rgb(77, 129, 90); /* Greenish color on hover */
+        }
+
+        /* Avatar styling */
+        nav .avatar img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%; /* Circular avatar */
+            border: 2px solid white; /* Border around the avatar */
+        }
+
+        /* Hamburger menu for smaller screens */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger div {
+            background-color: white;
+            height: 3px;
+            width: 25px;
+            margin: 3px 0;
+        }
+
+        /* Header section styles */
+        header {
+            text-align: center; /* Center align text */
+            padding: 30px 0;
+        }
+
+        header h1 {
+            font-size: 3rem; /* Large heading */
+            color: white;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        header h4 {
+            color: rgb(0, 168, 168); /* Light teal color */
+            font-size: 1.6rem;
+        }
+
+        /* Form section styles */
+        form {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: rgba(44, 44, 44, 0.6); /* Semi-transparent background */
+            border-radius: 15px;
+            width: 50%; /* Form width */
+        }
+
+        /* File upload input styling */
+        .upload {
+            font-size: 18px;
+            padding: 10px;
+            border-radius: 10px;
+            width: 80%;
+            border: 3px solid white;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        /* Style for the file upload button */
+        ::-webkit-file-upload-button {
+            color: white;
+            background-color: rgb(3, 179, 61); /* Green button */
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        /* Hover effect for file upload button */
+        ::-webkit-file-upload-button:hover {
+            background-color: rgb(177, 174, 174); /* Grayish background */
+        }
+
+        /* Submit button styles */
+        input[type="submit"] {
+            padding: 15px 30px;
+            background-color: rgb(31, 185, 190); /* Teal background */
+            border-radius: 15px;
+            color: black;
+            font-size: 1.5rem;
+            border: 4px solid rgb(31, 185, 190);
+            cursor: pointer;
+        }
+
+        /* Submit button hover effect */
+        input[type="submit"]:hover {
+            background-color: rgb(28, 168, 174); /* Darker teal */
+        }
+
+        /* Footer section styles */
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            color: white;
+        }
+
+        footer a {
+            color: rgb(18, 231, 231); /* Bright teal color */
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline; /* Underline on hover */
+        }
+
+        /* Responsive styles for smaller screens */
+        @media (max-width: 768px) {
+            /* Smaller screens (tablets and below) */
+            nav ul {
+                display: none; /* Hide navigation links */
+                flex-direction: column;
+                background-color: rgba(0, 0, 0, 0.9);
+                position: absolute;
+                top: 60px;
+                right: 0;
+                width: 100%;
+                text-align: center;
+            }
+
+            nav ul.active {
+                display: flex; /* Show navigation links */
+            }
+
+            .hamburger {
+                display: flex; /* Show hamburger menu */
+            }
+
+            header h1 {
+                font-size: 2rem; /* Smaller heading */
+            }
+
+            form {
+                width: 80%; /* Adjust form width */
+            }
+
+            input[type="submit"] {
+                font-size: 1.2rem;
+                padding: 12px 25px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            /* Extra small screens (phones) */
+            header h1 {
+                font-size: 1.8rem; /* Smaller heading */
+            }
+
+            form {
+                width: 90%; /* Adjust form width */
+            }
+
+            input[type="submit"] {
+                font-size: 1rem;
+                padding: 10px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <!-- Logo (image) -->
+        <a href="/" class="logo">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="LeafCure Logo">
+        </a>
+        <ul>
+            <!-- Navigation links -->
+            <li><a href="/">Home</a></li>
+            <li><a href="/">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+            {% if current_user.is_authenticated %}
+            <li><a href="/logout">Logout</a></li>
+            <!-- User avatar -->
+            <li class="avatar">
+                <img src="{{ url_for('static', filename='images/avatar.png') }}" alt="User Avatar">
+            </li>
+            {% else %}
+            <li><a href="/login">Login</a></li>
+            {% endif %}
+        </ul>
+        <!-- Hamburger menu for mobile -->
+        <div class="hamburger" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <header>
+        <h1>LeafCure - Predict and Cure Plant Leaf Diseases</h1>
+        <h4>Upload a clear image of your plant leaf to get disease prediction and care tips</h4>
+    </header>
+
+    <!-- Form Section -->
+    <section>
+        <form action="/predict" method="post" enctype="multipart/form-data">
+            <!-- File input for image upload -->
+            <input type="file" name="image" class="upload" accept="image/*" required>
+            <!-- Submit button -->
+            <input type="submit" value="Predict">
+        </form>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>Powered by LeafCure | <a href="#about">Learn More</a> | <a href="#contact">Contact Us</a></p>
+    </footer>
+
+    <!-- JavaScript for hamburger menu toggle -->
+    <script>
+        function toggleMenu() {
+            const navLinks = document.querySelector('nav ul');
+            navLinks.classList.toggle('active');
+        }
+    </script>
+
+</body>
+
+</html>

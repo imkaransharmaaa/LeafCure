@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LeafCure - Sign In</title>
+  <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}" type="image/x-icon">
+  <style>
+    /* Reset and Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Roboto", sans-serif;
+    }
+
+    body {
+      background: #000;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('{{ url_for("static", filename="images/bg.png") }}');
+      background-size: cover;
+      background-repeat: no-repeat;
+      opacity: 0.5;
+      z-index: -1;
+    }
+
+    /* Form Wrapper */
+    .form-wrapper {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      max-width: 400px;
+      padding: 40px;
+      background: rgba(0, 0, 0, 0.8);
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      text-align: center;
+    }
+
+    .form-wrapper h3 {
+      font-size: 1.5rem;
+      margin-bottom: 30px;
+    }
+
+    /* Form and Input Fields */
+    .form-control {
+      margin-bottom: 18px;
+      text-align: left;
+    }
+
+    .form-control input {
+      width: 100%;
+      padding: 10px;
+      background: #333;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      color: #fff;
+      outline: none;
+      transition: background 0.3s ease;
+    }
+
+    .form-control input:focus {
+      background: #444;
+    }
+
+    button[type="submit"] {
+      width: 100%;
+      padding: 10px 0;
+      font-size: 1rem;
+      background: #00b300;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button[type="submit"]:hover {
+      background: #02a702;
+    }
+
+    /* Links and Text */
+    .form-wrapper a {
+      color: #00ff00;
+      text-decoration: none;
+      font-weight: 200;
+    }
+
+    .form-wrapper a:hover {
+      text-decoration: underline;
+    }
+
+    .form-wrapper p {
+      margin-top: 15px;
+      font-size: 0.9rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 740px) {
+      .form-wrapper {
+        width: 90%;
+        padding: 15px;
+      }
+
+      .form-wrapper h3 {
+        font-size: 1.2rem;
+      }
+
+      .form-control input {
+        padding: 8px;
+        font-size: 0.85rem;
+      }
+
+      button[type="submit"] {
+        padding: 8px 0;
+        font-size: 0.9rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .form-wrapper {
+        padding: 10px;
+      }
+
+      .form-wrapper h3 {
+        font-size: 1rem;
+      }
+
+      .form-control input {
+        padding: 6px;
+        font-size: 0.8rem;
+      }
+
+      button[type="submit"] {
+        padding: 6px 0;
+        font-size: 0.85rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="form-wrapper">
+    <h3>Sign In</h3>
+    <form action="/login" method="POST">
+      <input type="hidden" name="csrf_token" value="{{ form.csrf_token._value() }}">
+      <div class="form-control">
+        <input type="email" id="email" name="email" placeholder="Email" required>
+      </div>
+      <div class="form-control">
+        <input type="password" id="password" name="password" placeholder="Password" required>
+      </div>
+      <button type="submit">Sign In</button>
+    </form>
+    <p>New to LeafCure? <a href="/register">Sign Up now</a></p>
+  </div>
+</body>
+
+</html>

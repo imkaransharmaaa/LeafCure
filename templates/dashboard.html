@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeafCure</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}" type="image/x-icon">
+</head>
+
+<body>
+    <nav>
+        <a href="/">Home</a>
+        {% if current_user.is_authenticated %}
+            <a href="/dashboard">Dashboard</a>
+            <span
+        ></span>
+            <a href="/logout">Logout</a>
+        {% else %}
+            <a href="/login">Login</a>
+            <a href="/register">Register</a>
+        {% endif %}
+    </nav>
+    <div>
+        <h2>Welcome, {{ username }}!</h2>
+        <p>This is your dashboard.</p>
+    </div>
+</body>
+
+</html>
